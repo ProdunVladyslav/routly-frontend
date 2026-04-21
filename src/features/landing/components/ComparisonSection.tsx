@@ -74,24 +74,27 @@ const HeaderCell = styled.div<{ highlighted?: boolean }>`
   border-left: ${({ highlighted }) => (highlighted ? `1px solid rgba(99,102,241,0.25)` : 'none')};
   border-right: ${({ highlighted }) => (highlighted ? `1px solid rgba(99,102,241,0.25)` : 'none')};
   background: ${({ highlighted }) => (highlighted ? 'rgba(99,102,241,0.08)' : 'transparent')};
-  position: relative;
+`
 
-  &::after {
-    content: ${({ highlighted }) => (highlighted ? '"★ Recommended"' : 'none')};
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 9px;
-    font-weight: 700;
-    color: ${C.accentText};
-    background: rgba(99,102,241,0.2);
-    border: 1px solid rgba(99,102,241,0.35);
-    border-radius: 4px;
-    padding: 2px 7px;
-    letter-spacing: 0.5px;
-    white-space: nowrap;
-  }
+const TableOuter = styled.div`
+  position: relative;
+  padding-top: 36px;
+`
+
+const RecommendedBadge = styled.div`
+  position: absolute;
+  top: 0;
+  left: 83.33%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  font-weight: 700;
+  color: ${C.accentText};
+  background: rgba(99,102,241,0.2);
+  border: 1px solid rgba(99,102,241,0.35);
+  border-radius: 4px;
+  padding: 2px 7px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
 `
 
 const TableRow = styled(motion.div)`
@@ -175,12 +178,14 @@ export function ComparisonSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
+          <TableOuter>
+            <RecommendedBadge>★ Recommended</RecommendedBadge>
           <TableScroll>
             <Table>
               <TableHeader>
                 <HeaderCell>Feature</HeaderCell>
                 <HeaderCell>Calendly alone</HeaderCell>
-                <HeaderCell highlighted>Qualify</HeaderCell>
+                <HeaderCell highlighted>Routly</HeaderCell>
               </TableHeader>
 
               {ROWS.map((row, i) => (
@@ -206,6 +211,7 @@ export function ComparisonSection() {
               ))}
             </Table>
           </TableScroll>
+          </TableOuter>
         </motion.div>
       </Inner>
     </Section>

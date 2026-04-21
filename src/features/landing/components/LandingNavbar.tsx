@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, ArrowRight } from 'lucide-react'
 import { C, FONT } from '../constants'
 import { RoutlyLogo } from '@shared/ui/RoutlyLogo'
+import { useAuthStore } from '@features/auth/store/auth.store'
 
 const Nav = styled.nav<{ scrolled: boolean }>`
   position: fixed;
@@ -157,6 +158,7 @@ const MobileCTA = styled.a`
 export function LandingNavbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const isAuthenticated = useAuthStore(s => s.isAuthenticated)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -184,10 +186,18 @@ export function LandingNavbar() {
           </NavLinks>
 
           <NavActions>
-            <LoginBtn href="/login">Log in</LoginBtn>
-            <CTABtn href="/signup" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              Get started free →
-            </CTABtn>
+            {isAuthenticated ? (
+              <CTABtn href="/dashboard" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                Dashboard <ArrowRight size={14} />
+              </CTABtn>
+            ) : (
+              <>
+                <LoginBtn href="/login">Log in</LoginBtn>
+                <CTABtn href="/signup" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                  Get started free →
+                </CTABtn>
+              </>
+            )}
             <MobileMenuBtn onClick={() => setMobileOpen(o => !o)}>
               {mobileOpen ? <X size={22} /> : <Menu size={22} />}
             </MobileMenuBtn>
@@ -205,8 +215,14 @@ export function LandingNavbar() {
           <MobileLink onClick={() => scrollTo('how-it-works')}>How it works</MobileLink>
           <MobileLink onClick={() => scrollTo('features')}>Features</MobileLink>
           <MobileLink onClick={() => scrollTo('pricing')}>Pricing</MobileLink>
-          <MobileLink href="/login">Log in</MobileLink>
-          <MobileCTA href="/signup">Get started free →</MobileCTA>
+          {isAuthenticated ? (
+            <MobileCTA href="/dashboard">Dashboard</MobileCTA>
+          ) : (
+            <>
+              <MobileLink href="/login">Log in</MobileLink>
+              <MobileCTA href="/signup">Get started free →</MobileCTA>
+            </>
+          )}
         </MobileMenu>
       )}
     </>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { motion, AnimatePresence } from 'framer-motion'
-import { GitMerge, Sparkles, BarChart2, ArrowRight } from 'lucide-react'
+import { Share2, Sparkles, BarChart2, ArrowRight } from 'lucide-react'
 import { C, FONT } from '../constants'
 
 // ─── Styled — all animations use lp-* names from LandingKeyframes global ──────
@@ -134,37 +134,31 @@ const Edge4 = styled.line`
 
 function DagVisual() {
   return (
-    <svg width="240" height="200" viewBox="0 0 240 200" style={{ overflow: 'visible' }}>
-      <Edge1 x1="120" y1="38" x2="68"  y2="90"  stroke={C.accentLight} strokeWidth="1.5" />
-      <Edge2 x1="120" y1="38" x2="172" y2="90"  stroke={C.accentLight} strokeWidth="1.5" />
-      <Edge3 x1="68"  y1="110" x2="68" y2="156" stroke="#22C55E"       strokeWidth="1.5" />
-      <Edge4 x1="172" y1="110" x2="172" y2="156" stroke={C.error}      strokeWidth="1.5" />
+    <svg width="240" height="182" viewBox="0 0 240 182" style={{ display: 'block', maxWidth: '100%' }}>
+      <Edge1 x1="120" y1="38" x2="68"  y2="86"  stroke={C.accentLight} strokeWidth="1.5" />
+      <Edge2 x1="120" y1="38" x2="172" y2="86"  stroke={C.accentLight} strokeWidth="1.5" />
+      <Edge3 x1="68"  y1="106" x2="68" y2="150" stroke="#22C55E"        strokeWidth="1.5" />
+      <Edge4 x1="172" y1="106" x2="172" y2="150" stroke={C.error}       strokeWidth="1.5" />
 
-      <foreignObject x="70" y="10" width="100" height="30">
-        <div style={{ background: 'rgba(99,102,241,0.2)', border: `1px solid ${C.accent}60`, borderRadius: 6, padding: '5px 10px', fontSize: 10, fontWeight: 700, color: C.accentText, textAlign: 'center', fontFamily: FONT }}>
-          Company size?
-        </div>
-      </foreignObject>
-      <foreignObject x="28" y="88" width="80" height="24">
-        <div style={{ background: 'rgba(34,197,94,0.12)', border: '1px solid rgba(34,197,94,0.3)', borderRadius: 6, padding: '4px 8px', fontSize: 10, fontWeight: 600, color: '#4ADE80', textAlign: 'center', fontFamily: FONT }}>
-          50+ → Score +2
-        </div>
-      </foreignObject>
-      <foreignObject x="132" y="88" width="80" height="24">
-        <div style={{ background: 'rgba(239,68,68,0.12)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: 6, padding: '4px 8px', fontSize: 10, fontWeight: 600, color: '#F87171', textAlign: 'center', fontFamily: FONT }}>
-          {'< 5 → Score 0'}
-        </div>
-      </foreignObject>
-      <foreignObject x="24" y="154" width="88" height="26">
-        <div style={{ background: 'rgba(34,197,94,0.15)', border: '1px solid rgba(34,197,94,0.4)', borderRadius: 6, padding: '5px 8px', fontSize: 10, fontWeight: 700, color: '#4ADE80', textAlign: 'center', fontFamily: FONT }}>
-          ✓ Qualified
-        </div>
-      </foreignObject>
-      <foreignObject x="128" y="154" width="84" height="26">
-        <div style={{ background: 'rgba(245,158,11,0.12)', border: '1px solid rgba(245,158,11,0.3)', borderRadius: 6, padding: '5px 8px', fontSize: 10, fontWeight: 700, color: '#FCD34D', textAlign: 'center', fontFamily: FONT }}>
-          → Nurture
-        </div>
-      </foreignObject>
+      {/* Top node */}
+      <rect x="70" y="10" width="100" height="28" rx="6" fill="rgba(99,102,241,0.2)" stroke="rgba(99,102,241,0.55)" strokeWidth="1" />
+      <text x="120" y="28" textAnchor="middle" fontSize="10" fontWeight="700" fill={C.accentText} fontFamily={FONT}>Company size?</text>
+
+      {/* Left branch */}
+      <rect x="28" y="86" width="80" height="20" rx="5" fill="rgba(34,197,94,0.12)" stroke="rgba(34,197,94,0.3)" strokeWidth="1" />
+      <text x="68" y="100" textAnchor="middle" fontSize="10" fontWeight="600" fill="#4ADE80" fontFamily={FONT}>50+ → Score +2</text>
+
+      {/* Right branch */}
+      <rect x="132" y="86" width="80" height="20" rx="5" fill="rgba(239,68,68,0.12)" stroke="rgba(239,68,68,0.3)" strokeWidth="1" />
+      <text x="172" y="100" textAnchor="middle" fontSize="10" fontWeight="600" fill="#F87171" fontFamily={FONT}>{'< 5 → Score 0'}</text>
+
+      {/* Left bottom */}
+      <rect x="24" y="150" width="88" height="24" rx="6" fill="rgba(34,197,94,0.15)" stroke="rgba(34,197,94,0.4)" strokeWidth="1" />
+      <text x="68" y="166" textAnchor="middle" fontSize="10" fontWeight="700" fill="#4ADE80" fontFamily={FONT}>✓ Qualified</text>
+
+      {/* Right bottom */}
+      <rect x="128" y="150" width="84" height="24" rx="6" fill="rgba(245,158,11,0.12)" stroke="rgba(245,158,11,0.3)" strokeWidth="1" />
+      <text x="170" y="166" textAnchor="middle" fontSize="10" fontWeight="700" fill="#FCD34D" fontFamily={FONT}>→ Nurture</text>
     </svg>
   )
 }
@@ -204,7 +198,7 @@ function AIVisual() {
   const colors = [C.accent, C.purple, C.blue, '#22C55E']
 
   return (
-    <div style={{ width: '90%', display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <div style={{ width: '90%', maxWidth: '100%', display: 'flex', flexDirection: 'column', gap: 12, overflow: 'hidden' }}>
       <div style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 8, padding: '10px 12px', fontFamily: 'monospace', fontSize: 11, color: C.accentText, minHeight: 36, display: 'flex', alignItems: 'center', gap: 4 }}>
         <Sparkles size={11} color={C.accentLight} style={{ flexShrink: 0 }} />
         <span>{PROMPT.slice(0, typed)}</span>
@@ -238,7 +232,7 @@ const FUNNEL = [
 
 function AnalyticsVisual() {
   return (
-    <div style={{ width: '88%', display: 'flex', flexDirection: 'column', gap: 10 }}>
+    <div style={{ width: '88%', maxWidth: '100%', display: 'flex', flexDirection: 'column', gap: 10, overflow: 'hidden' }}>
       {FUNNEL.map((item, i) => (
         <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <div style={{ width: 72, fontSize: 10, color: C.textMuted, textAlign: 'right', flexShrink: 0, fontFamily: FONT }}>
@@ -265,7 +259,7 @@ function AnalyticsVisual() {
 // ─── Feature data ─────────────────────────────────────────────────────────────
 const FEATURES = [
   {
-    icon: GitMerge, iconColor: C.accent,
+    icon: Share2, iconColor: C.accent,
     title: 'Visual DAG Builder',
     desc: 'Build flows as complex as your sales process. Conditional logic, scoring, multi-path branching — all drag & drop.',
     visual: <DagVisual />,

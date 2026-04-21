@@ -53,11 +53,11 @@ interface Answers {
 // ─── Styled ───────────────────────────────────────────────────────────────────
 const Section = styled.section`
   background: ${C.surface};
-  padding: 100px 24px;
+  padding: 100px 24px 72px;
   font-family: ${FONT};
   position: relative;
   overflow: hidden;
-  @media (max-width: 768px) { padding: 72px 16px; }
+  @media (max-width: 768px) { padding: 72px 16px 52px; }
   &::before {
     content: '';
     position: absolute;

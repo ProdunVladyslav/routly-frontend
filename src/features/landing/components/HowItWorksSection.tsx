@@ -6,7 +6,7 @@ import { C, FONT } from '../constants'
 
 const Section = styled.section`
   background: ${C.surface};
-  padding: 100px 24px;
+  padding: 72px 24px 100px;
   font-family: ${FONT};
   position: relative;
   &::before {
@@ -17,7 +17,7 @@ const Section = styled.section`
     background-size: 28px 28px;
     pointer-events: none;
   }
-  @media (max-width: 768px) { padding: 72px 16px; }
+  @media (max-width: 768px) { padding: 52px 16px 72px; }
 `
 
 const Inner = styled.div`
